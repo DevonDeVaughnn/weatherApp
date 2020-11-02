@@ -1,5 +1,7 @@
 const citySearchEl = $("#citySearch")
 const citySearchArr = []
+
+
 function searchWeather(city) {
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
@@ -28,61 +30,92 @@ function searchWeather(city) {
                 const day = element.dt_txt.split(" ")[0]
                 const time = element.dt_txt.split(" ")[1]
                 if (time === "12:00:00") {
+
+
+                    const dayContainerCard = $("card")
                     const dayContainer = $("<div>")
+                    dayContainer.append(dayContainerCard)
                     const date = $("<p>").text(day)
                     const img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + element.weather[0].icon + ".png");
                     // Convert the temp to fahrenheit
                     const tempF = (element.main.temp - 273.15) * 1.80 + 32;
-                    const temp = $("<p>").text(Math.floor(tempF) + " F")
-                    const wind = $("<p>").text(element.wind.speed + " mph")
+                    const temp = $("<p>").text(Math.floor(tempF) + "° F")
+                    const wind = $("<p>").text("Wind: " + element.wind.speed + " mph")
                     dayContainer.append(date, temp, img, wind)
+
+                    //create weather boxes for given city
                     $(".fiveDay").append(dayContainer)
+                    $(".fiveDay").attr("style", "display: flex; justify-content:space-around")
+                    dayContainer.attr("style", "margin-left:20px; margin-top:20px; background-color:grey; width:11em; display:inline-block; text-align:center; border:1px solid black;")
+
+
+
                 }
 
 
 
             }
 
-            // Transfer content to HTML
-            /*$(".city").html("<h1>" + response.name + " Weather Details</h1>");
-            $(".wind").text("Wind Speed: " + response.wind.speed);
-            $(".humidity").text("Humidity: " + response.main.humidity);
-            
-    
-            // add temp content to html
-            $(".temp").text("Temperature (K) " + response.main.temp);
-            $(".tempF").text("Temperature (F) " + tempF.toFixed(2));
-    
-            // Log the data in the console as well
-            console.log("Wind Speed: " + response.wind.speed);
-            console.log("Humidity: " + response.main.humidity);
-            console.log("Temperature (F): " + tempF);*/
 
-            saveCity();
         });
-
-    // Store buttons in local storage
-    function saveCity() {
-        var searchedCities = JSON.stringify(citySearchArr);
-        console.log(searchedCities);
-        localStorage.setItem("Cities", searchedCity);
-    }
-    // Pull from localstorage
-    function getList() {
-        var cityList = JSON.parse(localStorage.getItem("Cities"));
-        if (cityList != null) {
-            citySearchArr = [];
-            citySearchArr = cityList;
-            console.log(cityList);
-        }
-
-    }
-    $(".searchBar").on("submit", (e) => {
-        e.preventDefault()
-
-        const currentCity = citySearchEl.val()
-        citySearchArr.push(currentCity)
-        searchWeather(currentCity);
+};
 
 
-    })}
+   
+
+
+
+
+
+
+//submit func
+
+$(".searchBar").on("submit", (e) => {
+    e.preventDefault()
+    //clear previous city
+    $(".fiveDay").empty()
+    $(".currentCity").empty()
+
+    //show current city
+
+    const currentCity = citySearchEl.val()
+    localStorage.setItem("currentCity", currentCity);
+    localStorage.getItem("currentCity")
+    const searchContainer = $("<div>")
+    const userSearch = $("<button><p>").text(currentCity)
+  
+   
+    
+    userSearch.attr("style", "background-color:gray; align-self:center")
+    
+
+    searchContainer.append(userSearch)
+    $('.searchHistory').append(searchContainer)
+    searchContainer.attr("style", "width:120px; background-color:gray; text-align:center;")
+   
+
+
+    //headline current city as h1
+
+    const cityContainer = $("<div>")
+    const city = $("<h1>").text(currentCity)
+    cityContainer.append(city)
+    $('.currentCity').append(cityContainer)
+    cityContainer.attr("style", "text-align:center; padding-top: 20px; text-decoration:underline")
+
+    citySearchArr.push(currentCity)
+
+    searchWeather(currentCity);
+
+    console.log(citySearchArr)
+
+
+
+
+
+});
+
+
+
+
+
