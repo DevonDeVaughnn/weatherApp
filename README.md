@@ -32,7 +32,7 @@ Contact me at: devondevaughnn@gmail.com
 
 ## License
 
-GNU AGPLv3
+
 
 ## Credits
 
