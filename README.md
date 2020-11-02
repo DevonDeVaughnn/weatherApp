@@ -24,7 +24,7 @@ Contact me at: devondevaughnn@gmail.com
 
 ## Installation
 
-* Clone the code then type 'node index.js' in your terminal
+*n/a
        
 ## Usage 
 
