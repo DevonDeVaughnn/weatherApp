@@ -28,7 +28,7 @@ Contact me at: devondevaughnn@gmail.com
        
 ## Usage 
 
-* Enter your desired city into the search bar and the program will generate their five day forecast
+* Go to https://devondevaughnn.github.io/weatherApp/. Enter your desired city into the search bar and the program will generate their five day forecast
 
 ## License
 
